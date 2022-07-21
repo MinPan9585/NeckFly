@@ -39,4 +39,6 @@ public class CameraRay : MonoBehaviour
             butterflyPath.DOTogglePause();
         }
     }
+
+    
 }
