@@ -58,3 +58,7 @@ sysinfo.txt
 # Crashlytics generated file
 crashlytics-build.properties
 
+NeckFly0721/Assets/NRSDK/NRKernalSessionConfig.asset
+NeckFly0721/Assets/NRSDK/Demos/Config/SessionConfig_Demo.asset
+NeckFly0721/Assets/NRSDK/NRKernalSessionConfig.asset
+NeckFly0721/Packages/packages-lock.json
