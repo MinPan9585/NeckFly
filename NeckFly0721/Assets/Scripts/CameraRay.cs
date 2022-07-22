@@ -8,33 +8,60 @@ public class CameraRay : MonoBehaviour
     GameObject butterfly;
     DOTweenPath butterflyPath;
 
+    CapsuleCollider capsuleCollider;
+    public List<GameObject> TriggerObj = new List<GameObject>();
+
+
     public bool eyeFollowed = false;
 
     void Awake(){
         butterfly = GameObject.Find("ButterflyPath1");
         butterflyPath = butterfly.GetComponent<DOTweenPath>();
         
+        capsuleCollider = gameObject.GetComponent<CapsuleCollider>();
     }
 
     void Start(){
         butterflyPath.DOPlay();
     }
 
+    private void OnTriggerEnter(Collider other) {
+        //list ++
+        if(other.tag == "Butterfly")
+        {
+            if(!TriggerObj.Contains(other.gameObject))
+            {
+                TriggerObj.Add(other.gameObject);
+            }
+        }
+    }
+
+    private void OnTriggerExit(Collider other) {
+        //list --
+        if(other.tag == "Butterfly")
+        {
+            if(!TriggerObj.Contains(other.gameObject))
+            {
+                TriggerObj.Remove(other.gameObject);
+            }
+        }
+    }
+
     void Update()
     {
-        RaycastHit[] hits;
+        //RaycastHit[] hits;
         //换一个重载，只检测蝴蝶身上的两个collider
-        hits = Physics.RaycastAll(transform.position, transform.forward, 100f);
+        //hits = Physics.RaycastAll(transform.position, transform.forward, 100f);
 
-        if(hits.Length>0){
+        if(TriggerObj.Count>0){
             
             eyeFollowed = true;
 
             //success, toggle on animation and vfx
-            if(hits.Length == 2){
+            if(TriggerObj.Count == 2){
                 //corresponding vfx, add score
             }
-            if(hits.Length == 1){
+            if(TriggerObj.Count == 1){
                 //corresponding vfx, add score
             }
         }
@@ -45,6 +72,4 @@ public class CameraRay : MonoBehaviour
 
         }
     }
-
-    
 }
