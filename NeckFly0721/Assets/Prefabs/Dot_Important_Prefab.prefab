@@ -14261,7 +14261,7 @@ GameObject:
   - component: {fileID: 2020436690912922645}
   m_Layer: 0
   m_Name: Dot_Important_Prefab
-  m_TagString: Untagged
+  m_TagString: Circles
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -19081,7 +19081,7 @@ GameObject:
   - component: {fileID: 2615956961856538288}
   m_Layer: 0
   m_Name: IndicatorMesh
-  m_TagString: Untagged
+  m_TagString: Circles
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -19115,7 +19115,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8000269695023285624}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
