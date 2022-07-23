@@ -34,20 +34,21 @@ public class CameraRay : MonoBehaviour
 
     private void OnTriggerEnter(Collider other) {
         //list ++
+        Debug.Log("bbb");
         if(other.tag == "Butterfly")
         {
             if(!TriggerObj.Contains(other.gameObject))
             {
                 TriggerObj.Add(other.gameObject);
+                print("aaa");
             }
         }
     }
 
     private void OnTriggerExit(Collider other) {
-        //list --
         if(other.tag == "Butterfly")
         {
-            if(!TriggerObj.Contains(other.gameObject))
+            if(TriggerObj.Contains(other.gameObject))
             {
                 TriggerObj.Remove(other.gameObject);
             }
@@ -69,17 +70,19 @@ public class CameraRay : MonoBehaviour
             eyeFollowed = true;
             if(TriggerObj.Count == 2){
                 //corresponding vfx, add score
-                goodFollowFX.Play();
-                normalFollowFX.Stop();
+                goodFollowFX.gameObject.SetActive(true);
+                normalFollowFX.gameObject.SetActive(false);
             }
             if(TriggerObj.Count == 1){
                 //corresponding vfx, add score
-                goodFollowFX.Stop();
-                normalFollowFX.Play();
+                goodFollowFX.gameObject.SetActive(false);
+                normalFollowFX.gameObject.SetActive(true);
             }
         }
         else{
             eyeFollowed = false;
+            goodFollowFX.gameObject.SetActive(false);
+            normalFollowFX.gameObject.SetActive(false);
         }
     }
 }
