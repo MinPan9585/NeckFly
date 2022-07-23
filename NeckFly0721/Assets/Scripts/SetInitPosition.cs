@@ -10,6 +10,10 @@ public class SetInitPosition : MonoBehaviour
     void Awake()
     {
         rig = GameObject.Find("NRCameraRig");
+        //transform.position = rig.transform.position + offset;
+    }
+
+    private void Start() {
         transform.position = rig.transform.position + offset;
     }
 }
