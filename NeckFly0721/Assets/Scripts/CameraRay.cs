@@ -18,6 +18,12 @@ public class CameraRay : MonoBehaviour
 
     public bool eyeFollowed = false;
 
+    public static float smallColliderTime;
+    public static float bigColliderTime;
+    public static float totalTime;
+
+
+
     void Awake(){
         butterfly = GameObject.Find("ButterflyPath1");
         butterflyPath = butterfly.GetComponent<DOTweenPath>();
@@ -57,6 +63,8 @@ public class CameraRay : MonoBehaviour
 
     void Update()
     {
+        totalTime += Time.deltaTime;
+        
         if(Time.time >= 2.25f && animationPlayed == false){
             butterflyPath.DOPlay();
             animationPlayed = true;
@@ -72,11 +80,13 @@ public class CameraRay : MonoBehaviour
                 //corresponding vfx, add score
                 goodFollowFX.gameObject.SetActive(true);
                 normalFollowFX.gameObject.SetActive(false);
+                smallColliderTime += Time.deltaTime;
             }
             if(TriggerObj.Count == 1){
                 //corresponding vfx, add score
                 goodFollowFX.gameObject.SetActive(false);
                 normalFollowFX.gameObject.SetActive(true);
+                bigColliderTime += Time.deltaTime;
             }
         }
         else{
