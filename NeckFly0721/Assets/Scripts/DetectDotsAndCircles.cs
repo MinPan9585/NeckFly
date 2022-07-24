@@ -18,6 +18,9 @@ public class DetectDotsAndCircles : MonoBehaviour
     ParticleSystem circleSVFX;
     ParticleSystem circleFVFX;
 
+    int curIndex = 0;
+    DotsAndCirclesList dotsList;
+
     void Awake()
     {
         sphereCollider = gameObject.GetComponent<SphereCollider>();
@@ -31,7 +34,7 @@ public class DetectDotsAndCircles : MonoBehaviour
         circlesAudio_s4 = GameObject.Find("Circle_4").GetComponent<AudioSource>();
         circlesAudio_f = GameObject.Find("Circle_F_individual").GetComponent<AudioSource>();
 
-        
+        dotsList = GameObject.Find("DotsAndCircles").GetComponent<DotsAndCirclesList>();
 
         circleSVFX = GameObject.Find("ImportantDot_Good_VFX").GetComponent<ParticleSystem>();
         circleFVFX = GameObject.Find("ImportantDot_Bad_VFX").GetComponent<ParticleSystem>();
@@ -42,54 +45,60 @@ public class DetectDotsAndCircles : MonoBehaviour
     }
 
     private void OnTriggerEnter(Collider other) {
-        if(other.tag == "Dots"){
-            if(cameraRay.eyeFollowed){
-                dotsAudio.Play();
+        if(other.tag == "Dots"||other.tag == "Circles"){
+            dotsList.HideAndShowDots(curIndex);
+            curIndex++;
+
+            if(other.tag == "Dots"){
+                if(cameraRay.eyeFollowed){
+                    dotsAudio.Play();
+                }
+            }
+
+            if(other.name == "Circle1"){
+                if(cameraRay.eyeFollowed){
+                    circlesAudio_s1.Play();
+                    circleSVFX.Play();
+                }
+                else{
+                    circlesAudio_f.Play();
+                    circleFVFX.Play();
+                }
+            }
+
+            if(other.name == "Circle2"){
+                if(cameraRay.eyeFollowed){
+                    circlesAudio_s2.Play();
+                    circleSVFX.Play();
+                }
+                else{
+                    circlesAudio_f.Play();
+                    circleFVFX.Play();
+                }
+            }
+
+            if(other.name == "Circle3"){
+                if(cameraRay.eyeFollowed){
+                    circlesAudio_s3.Play();
+                    circleSVFX.Play();
+                }
+                else{
+                    circlesAudio_f.Play();
+                    circleFVFX.Play();
+                }
+            }
+
+            if(other.name == "Circle4"){
+                if(cameraRay.eyeFollowed){
+                    circlesAudio_s4.Play();
+                    circleSVFX.Play();
+                }
+                else{
+                    circlesAudio_f.Play();
+                    circleFVFX.Play();
+                }
             }
         }
 
-        if(other.name == "Circle1"){
-            if(cameraRay.eyeFollowed){
-                circlesAudio_s1.Play();
-                circleSVFX.Play();
-            }
-            else{
-                circlesAudio_f.Play();
-                circleFVFX.Play();
-            }
-        }
-
-        if(other.name == "Circle2"){
-            if(cameraRay.eyeFollowed){
-                circlesAudio_s2.Play();
-                circleSVFX.Play();
-            }
-            else{
-                circlesAudio_f.Play();
-                circleFVFX.Play();
-            }
-        }
-
-        if(other.name == "Circle3"){
-            if(cameraRay.eyeFollowed){
-                circlesAudio_s3.Play();
-                circleSVFX.Play();
-            }
-            else{
-                circlesAudio_f.Play();
-                circleFVFX.Play();
-            }
-        }
-
-        if(other.name == "Circle4"){
-            if(cameraRay.eyeFollowed){
-                circlesAudio_s4.Play();
-                circleSVFX.Play();
-            }
-            else{
-                circlesAudio_f.Play();
-                circleFVFX.Play();
-            }
-        }
     }
 }
