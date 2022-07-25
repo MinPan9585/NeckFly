@@ -82018,6 +82018,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2247799497206864869, guid: 4285de7ecfdffe5428cf0d8d89aeb54b,
+        type: 3}
+      propertyPath: EmissionModule.rateOverTime.scalar
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7306659818315935513, guid: 4285de7ecfdffe5428cf0d8d89aeb54b,
+        type: 3}
+      propertyPath: EmissionModule.rateOverTime.scalar
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9080658829471675788, guid: 4285de7ecfdffe5428cf0d8d89aeb54b,
         type: 3}
       propertyPath: m_RootOrder
@@ -84627,6 +84637,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9080658830492239560, guid: 4285de7ecfdffe5428cf0d8d89aeb54b,
+        type: 3}
+      propertyPath: EmissionModule.rateOverTime.scalar
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 9080658830492239560, guid: 4285de7ecfdffe5428cf0d8d89aeb54b,
+        type: 3}
+      propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.scalar
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4285de7ecfdffe5428cf0d8d89aeb54b, type: 3}
