@@ -15,30 +15,48 @@ public class Gameloop : MonoBehaviour
     public GameObject PointsText;
     public GameObject PointsImg;
     private float points;
+    public DOTweenPath butterflyAnim;
+    public DOTweenPath butterflyPath;
+    bool animationPlayed = false;
+    float gameStartTime = 0f;
+    bool gameStarted = false;
+    Tween t;
+
     void Start()
     {
         //初始化
         endUI.SetActive(false);
         startUI.SetActive(true);
-        
+
         //点击开始界面按钮
         startBtn.GetComponent<Button>().onClick.AddListener(() =>
         {
             startUI.SetActive(false);
             //开始蝴蝶运动
-            
+            butterflyAnim.gameObject.SetActive(true);
+            butterflyPath.gameObject.SetActive(true);
+            butterflyPath.DOPlay();
+            gameStartTime = Time.time;
+            gameStarted = true;
         });
-        
+
+        t.OnComplete(() =>
+            EnterEndPhase(CameraRay.smallColliderTime,
+            CameraRay.bigColliderTime, CameraRay.totalTime));
+
         //点击结束界面按钮
         endBtn.GetComponent<Button>().onClick.AddListener(() =>
         {
             //结束蝴蝶运动
-            
+            butterflyAnim.gameObject.SetActive(false);
+            butterflyPath.gameObject.SetActive(false);
             //重新显示开始界面
             endUI.SetActive(false);
             startUI.SetActive(true);
         });
     }
+
+
 
     //蝴蝶结束进入结算阶段
     void EnterEndPhase(float smallColliderTime, float bigColliderTime, float totalTime)
@@ -56,16 +74,22 @@ public class Gameloop : MonoBehaviour
         float pp = 0f;
         while (pp < _points)
         {
-            pp += Time.deltaTime * 1.5f/_points * 0.01f;
+            pp += Time.deltaTime * 1.5f / _points * 0.01f;
             PointsImg.GetComponent<Image>().fillAmount = pp;
             PointsText.GetComponent<TextMeshPro>().text = string.Format("0:0.#", pp * 100) + "%";
             yield return null;
         }
         endBtn.SetActive(true);
     }
-    
+
     void Update()
     {
-        
+        if (Time.time - gameStartTime >= 2.25f
+        && gameStarted == true && animationPlayed == false)
+        {
+            butterflyAnim.DOPlay();
+            t = butterflyAnim.GetTween();
+            animationPlayed = true;
+        }
     }
 }

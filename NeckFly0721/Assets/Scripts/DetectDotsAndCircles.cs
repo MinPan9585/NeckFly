@@ -40,60 +40,77 @@ public class DetectDotsAndCircles : MonoBehaviour
         circleFVFX = GameObject.Find("ImportantDot_Bad_VFX").GetComponent<ParticleSystem>();
     }
 
-    void Start(){
+    void Start()
+    {
         bgAudio.Play();
     }
 
-    private void OnTriggerEnter(Collider other) {
-        if(other.tag == "Dots"||other.tag == "Circles"){
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Dots" || other.tag == "Circles")
+        {
             dotsList.HideAndShowDots(curIndex);
             curIndex++;
 
-            if(other.tag == "Dots"){
-                if(cameraRay.eyeFollowed){
+            if (other.tag == "Dots")
+            {
+                if (cameraRay.eyeFollowed)
+                {
                     dotsAudio.Play();
                 }
             }
 
-            if(other.name == "Circle1"){
-                if(cameraRay.eyeFollowed){
+            if (other.name == "Circle1")
+            {
+                if (cameraRay.eyeFollowed)
+                {
                     circlesAudio_s1.Play();
                     circleSVFX.Play();
                 }
-                else{
+                else
+                {
                     circlesAudio_f.Play();
                     circleFVFX.Play();
                 }
             }
 
-            if(other.name == "Circle2"){
-                if(cameraRay.eyeFollowed){
+            if (other.name == "Circle2")
+            {
+                if (cameraRay.eyeFollowed)
+                {
                     circlesAudio_s2.Play();
                     circleSVFX.Play();
                 }
-                else{
+                else
+                {
                     circlesAudio_f.Play();
                     circleFVFX.Play();
                 }
             }
 
-            if(other.name == "Circle3"){
-                if(cameraRay.eyeFollowed){
+            if (other.name == "Circle3")
+            {
+                if (cameraRay.eyeFollowed)
+                {
                     circlesAudio_s3.Play();
                     circleSVFX.Play();
                 }
-                else{
+                else
+                {
                     circlesAudio_f.Play();
                     circleFVFX.Play();
                 }
             }
 
-            if(other.name == "Circle4"){
-                if(cameraRay.eyeFollowed){
+            if (other.name == "Circle4")
+            {
+                if (cameraRay.eyeFollowed)
+                {
                     circlesAudio_s4.Play();
                     circleSVFX.Play();
                 }
-                else{
+                else
+                {
                     circlesAudio_f.Play();
                     circleFVFX.Play();
                 }

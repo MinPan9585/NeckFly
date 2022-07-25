@@ -13,9 +13,6 @@ public class CameraRay : MonoBehaviour
 
     ParticleSystem goodFollowFX;
     ParticleSystem normalFollowFX;
-
-    bool animationPlayed = false;
-
     public bool eyeFollowed = false;
 
     public static float smallColliderTime;
@@ -24,37 +21,41 @@ public class CameraRay : MonoBehaviour
 
 
 
-    void Awake(){
+    void Awake()
+    {
         butterfly = GameObject.Find("ButterflyPath1");
         butterflyPath = butterfly.GetComponent<DOTweenPath>();
-        
+
         capsuleCollider = gameObject.GetComponent<CapsuleCollider>();
 
         goodFollowFX = GameObject.Find("Glow_Good").GetComponent<ParticleSystem>();
         normalFollowFX = GameObject.Find("Glow_Bad").GetComponent<ParticleSystem>();
     }
 
-    void Start(){
-        
+    void Start()
+    {
+
     }
 
-    private void OnTriggerEnter(Collider other) {
+    private void OnTriggerEnter(Collider other)
+    {
         //list ++
-        Debug.Log("bbb");
-        if(other.tag == "Butterfly")
+        //Debug.Log("bbb");
+        if (other.tag == "Butterfly")
         {
-            if(!TriggerObj.Contains(other.gameObject))
+            if (!TriggerObj.Contains(other.gameObject))
             {
                 TriggerObj.Add(other.gameObject);
-                print("aaa");
+                //print("aaa");
             }
         }
     }
 
-    private void OnTriggerExit(Collider other) {
-        if(other.tag == "Butterfly")
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "Butterfly")
         {
-            if(TriggerObj.Contains(other.gameObject))
+            if (TriggerObj.Contains(other.gameObject))
             {
                 TriggerObj.Remove(other.gameObject);
             }
@@ -63,33 +64,26 @@ public class CameraRay : MonoBehaviour
 
     void Update()
     {
-        totalTime += Time.deltaTime;
-        
-        if(Time.time >= 2.25f && animationPlayed == false){
-            butterflyPath.DOPlay();
-            animationPlayed = true;
-        }
-
-        //RaycastHit[] hits;
-        //换一个重载，只检测蝴蝶身上的两个collider
-        //hits = Physics.RaycastAll(transform.position, transform.forward, 100f);
-
-        if(TriggerObj.Count>0){
+        if (TriggerObj.Count > 0)
+        {
             eyeFollowed = true;
-            if(TriggerObj.Count == 2){
+            if (TriggerObj.Count == 2)
+            {
                 //corresponding vfx, add score
                 goodFollowFX.gameObject.SetActive(true);
                 normalFollowFX.gameObject.SetActive(false);
                 smallColliderTime += Time.deltaTime;
             }
-            if(TriggerObj.Count == 1){
+            if (TriggerObj.Count == 1)
+            {
                 //corresponding vfx, add score
                 goodFollowFX.gameObject.SetActive(false);
                 normalFollowFX.gameObject.SetActive(true);
                 bigColliderTime += Time.deltaTime;
             }
         }
-        else{
+        else
+        {
             eyeFollowed = false;
             goodFollowFX.gameObject.SetActive(false);
             normalFollowFX.gameObject.SetActive(false);
