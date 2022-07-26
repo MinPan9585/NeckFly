@@ -5,8 +5,7 @@ using DG.Tweening;
 
 public class CameraRay : MonoBehaviour
 {
-    GameObject butterfly;
-    DOTweenPath butterflyPath;
+    public DOTweenPath butterflyPath;
 
     CapsuleCollider capsuleCollider;
     public List<GameObject> TriggerObj = new List<GameObject>();
@@ -19,17 +18,14 @@ public class CameraRay : MonoBehaviour
     public static float bigColliderTime;
     public static float totalTime;
 
-
+    public Animator eyeFollowButterfly;
 
     void Awake()
     {
-        butterfly = GameObject.Find("ButterflyPath1");
-        butterflyPath = butterfly.GetComponent<DOTweenPath>();
-
         capsuleCollider = gameObject.GetComponent<CapsuleCollider>();
 
-        goodFollowFX = GameObject.Find("Glow_Good").GetComponent<ParticleSystem>();
-        normalFollowFX = GameObject.Find("Glow_Bad").GetComponent<ParticleSystem>();
+        //goodFollowFX = GameObject.Find("Glow_Good").GetComponent<ParticleSystem>();
+        //normalFollowFX = GameObject.Find("Glow_Bad").GetComponent<ParticleSystem>();
     }
 
     void Start()
@@ -70,23 +66,30 @@ public class CameraRay : MonoBehaviour
             if (TriggerObj.Count == 2)
             {
                 //corresponding vfx, add score
-                goodFollowFX.gameObject.SetActive(true);
-                normalFollowFX.gameObject.SetActive(false);
+                //goodFollowFX.gameObject.SetActive(true);
+                //normalFollowFX.gameObject.SetActive(false);
+                eyeFollowButterfly.SetInteger("LayerTriggers", 2);
                 smallColliderTime += Time.deltaTime;
+
+                //Debug.Log("a");
             }
             if (TriggerObj.Count == 1)
             {
                 //corresponding vfx, add score
-                goodFollowFX.gameObject.SetActive(false);
-                normalFollowFX.gameObject.SetActive(true);
+                //goodFollowFX.gameObject.SetActive(false);
+                //normalFollowFX.gameObject.SetActive(true);
                 bigColliderTime += Time.deltaTime;
+                eyeFollowButterfly.SetInteger("LayerTriggers", 1);
+                //Debug.Log("b");
             }
         }
         else
         {
             eyeFollowed = false;
-            goodFollowFX.gameObject.SetActive(false);
-            normalFollowFX.gameObject.SetActive(false);
+            //goodFollowFX.gameObject.SetActive(false);
+            //normalFollowFX.gameObject.SetActive(false);
+            eyeFollowButterfly.SetInteger("LayerTriggers", 0);
+            //Debug.Log("c");
         }
     }
 }

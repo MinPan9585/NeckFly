@@ -14,13 +14,20 @@ public class Gameloop : MonoBehaviour
     public GameObject endBtn;
     public GameObject PointsText;
     public GameObject PointsImg;
+    public GameObject UIButterfly;
+    public CameraRay camera_Ray;
     private float points;
     public DOTweenPath butterflyAnim;
     public DOTweenPath butterflyPath;
     bool animationPlayed = false;
     float gameStartTime = 0f;
     bool gameStarted = false;
+    float gameEndTime=100f;
     Tween t;
+
+    void Awake(){
+        t = butterflyAnim.GetTween();
+    }
 
     void Start()
     {
@@ -33,16 +40,18 @@ public class Gameloop : MonoBehaviour
         {
             startUI.SetActive(false);
             //开始蝴蝶运动
+            UIButterfly.SetActive(false);
             butterflyAnim.gameObject.SetActive(true);
             butterflyPath.gameObject.SetActive(true);
             butterflyPath.DOPlay();
             gameStartTime = Time.time;
+            gameEndTime = gameStartTime + 117.9f;
             gameStarted = true;
         });
 
-        t.OnComplete(() =>
-            EnterEndPhase(CameraRay.smallColliderTime,
-            CameraRay.bigColliderTime, CameraRay.totalTime));
+        // t.OnComplete(() =>
+        //     EnterEndPhase(CameraRay.smallColliderTime,
+        //     CameraRay.bigColliderTime, CameraRay.totalTime));
 
         //点击结束界面按钮
         endBtn.GetComponent<Button>().onClick.AddListener(() =>
@@ -61,6 +70,8 @@ public class Gameloop : MonoBehaviour
     //蝴蝶结束进入结算阶段
     void EnterEndPhase(float smallColliderTime, float bigColliderTime, float totalTime)
     {
+        butterflyAnim.gameObject.SetActive(false);
+        butterflyPath.gameObject.SetActive(false);
         //展示结算动画
         endUI.SetActive(true);
         endBtn.SetActive(false);
@@ -88,8 +99,15 @@ public class Gameloop : MonoBehaviour
         && gameStarted == true && animationPlayed == false)
         {
             butterflyAnim.DOPlay();
-            t = butterflyAnim.GetTween();
+            
             animationPlayed = true;
+        }
+
+        if(Time.time>gameEndTime){
+            EnterEndPhase(CameraRay.smallColliderTime,
+                CameraRay.bigColliderTime, CameraRay.totalTime);
+            gameStarted = false;
+            animationPlayed = false;
         }
     }
 }

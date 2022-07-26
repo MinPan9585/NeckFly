@@ -108,8 +108,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 793112ed185887246ae905c711415343, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  butterflyPath: {fileID: 0}
   TriggerObj: []
   eyeFollowed: 0
+  eyeFollowButterfly: {fileID: 0}
 --- !u!54 &1077311998
 Rigidbody:
   m_ObjectHideFlags: 0

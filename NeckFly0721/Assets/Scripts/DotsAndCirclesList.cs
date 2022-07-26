@@ -15,6 +15,8 @@ public class DotsAndCirclesList : MonoBehaviour
     public void HideAndShowDots(int curIndex)
     {
         Destroy(dotsList[curIndex], 2f);
-        dotsList[curIndex+1].SetActive(true);
+        if(curIndex<20){
+            dotsList[curIndex+1].SetActive(true);
+        }
     }
 }
