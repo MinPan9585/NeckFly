@@ -22,6 +22,7 @@ public class Gameloop : MonoBehaviour
     bool animationPlayed = false;
     float gameStartTime = 0f;
     bool gameStarted = false;
+    bool gameEnd = false;
     float gameEndTime=100f;
     Tween t;
 
@@ -31,6 +32,7 @@ public class Gameloop : MonoBehaviour
 
     void Start()
     {
+        Time.timeScale = 5f;
         //初始化
         endUI.SetActive(false);
         startUI.SetActive(true);
@@ -70,6 +72,9 @@ public class Gameloop : MonoBehaviour
     //蝴蝶结束进入结算阶段
     void EnterEndPhase(float smallColliderTime, float bigColliderTime, float totalTime)
     {
+        //Debug.Log("small"+smallColliderTime);
+        //Debug.Log("big"+bigColliderTime);
+        //Debug.Log("total"+totalTime);
         butterflyAnim.gameObject.SetActive(false);
         butterflyPath.gameObject.SetActive(false);
         //展示结算动画
@@ -103,11 +108,12 @@ public class Gameloop : MonoBehaviour
             animationPlayed = true;
         }
 
-        if(Time.time>gameEndTime){
-            EnterEndPhase(CameraRay.smallColliderTime,
-                CameraRay.bigColliderTime, CameraRay.totalTime);
+        if(Time.time>gameEndTime && !gameEnd){
+            EnterEndPhase(5f,
+                7f, 12f);
             gameStarted = false;
             animationPlayed = false;
+            gameEnd = true;
         }
     }
 }
