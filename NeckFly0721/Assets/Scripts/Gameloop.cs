@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using DG.Tweening;
 using TMPro;
 using UnityEngine.SocialPlatforms;
+using UnityEngine.SceneManagement;
 
 public class Gameloop : MonoBehaviour
 {
@@ -23,7 +24,7 @@ public class Gameloop : MonoBehaviour
     float gameStartTime = 0f;
     bool gameStarted = false;
     bool gameEnd = false;
-    float gameEndTime=100f;
+    float gameEndTime=0f;
     Tween t;
 
     void Awake(){
@@ -58,12 +59,13 @@ public class Gameloop : MonoBehaviour
         //点击结束界面按钮
         endBtn.GetComponent<Button>().onClick.AddListener(() =>
         {
+            SceneManager.LoadScene("SceneAnimationPath");
             //结束蝴蝶运动
-            butterflyAnim.gameObject.SetActive(false);
-            butterflyPath.gameObject.SetActive(false);
-            //重新显示开始界面
-            endUI.SetActive(false);
-            startUI.SetActive(true);
+            // butterflyAnim.gameObject.SetActive(false);
+            // butterflyPath.gameObject.SetActive(false);
+            // //重新显示开始界面
+            // endUI.SetActive(false);
+            // startUI.SetActive(true);
         });
     }
 
@@ -78,21 +80,25 @@ public class Gameloop : MonoBehaviour
         butterflyAnim.gameObject.SetActive(false);
         butterflyPath.gameObject.SetActive(false);
         //展示结算动画
+        startUI.SetActive(false);
         endUI.SetActive(true);
         endBtn.SetActive(false);
-        points = smallColliderTime / totalTime * 0.9f + bigColliderTime / totalTime * 0.6f;
-        float tt = 1.5f / points;
-        StartCoroutine(CalAnimation(tt));
+        points = 0.9f * smallColliderTime / totalTime + 0.6f * bigColliderTime / totalTime;
+        StartCoroutine(CalAnimation(points));
     }
 
     public IEnumerator CalAnimation(float _points)
     {
         float pp = 0f;
+        int pp_int = 0;
+        Debug.Log("points:"+_points);
         while (pp < _points)
         {
-            pp += Time.deltaTime * 1.5f / _points * 0.01f;
+            pp += Time.deltaTime * 1.5f / _points * 0.1f;
+            pp_int = (int) (pp*100);
             PointsImg.GetComponent<Image>().fillAmount = pp;
-            PointsText.GetComponent<TextMeshPro>().text = string.Format("0:0.#", pp * 100) + "%";
+            PointsText.GetComponent<Text>().text = pp_int.ToString()+"%";
+            Debug.Log("pp:"+pp);
             yield return null;
         }
         endBtn.SetActive(true);
@@ -101,16 +107,17 @@ public class Gameloop : MonoBehaviour
     void Update()
     {
         if (Time.time - gameStartTime >= 2.25f
-        && gameStarted == true && animationPlayed == false)
+        && gameStarted && !animationPlayed)
         {
             butterflyAnim.DOPlay();
             
             animationPlayed = true;
         }
 
-        if(Time.time>gameEndTime && !gameEnd){
-            EnterEndPhase(5f,
-                7f, 12f);
+        if(gameEndTime> 0 && Time.time>gameEndTime && !gameEnd)
+        {
+            EnterEndPhase(CameraRay.smallColliderTime,
+                CameraRay.bigColliderTime, 115f);
             gameStarted = false;
             animationPlayed = false;
             gameEnd = true;
