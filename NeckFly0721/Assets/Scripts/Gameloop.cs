@@ -33,7 +33,7 @@ public class Gameloop : MonoBehaviour
 
     void Start()
     {
-        Time.timeScale = 5f;
+        //Time.timeScale = 5f;
         //初始化
         endUI.SetActive(false);
         startUI.SetActive(true);
@@ -77,6 +77,7 @@ public class Gameloop : MonoBehaviour
         //Debug.Log("small"+smallColliderTime);
         //Debug.Log("big"+bigColliderTime);
         //Debug.Log("total"+totalTime);
+        UIButterfly.SetActive(true);
         butterflyAnim.gameObject.SetActive(false);
         butterflyPath.gameObject.SetActive(false);
         //展示结算动画

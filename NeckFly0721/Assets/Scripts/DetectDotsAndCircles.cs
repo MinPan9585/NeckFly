@@ -15,8 +15,8 @@ public class DetectDotsAndCircles : MonoBehaviour
     AudioSource circlesAudio_s4;
     AudioSource circlesAudio_f;
 
-    ParticleSystem circleSVFX;
-    ParticleSystem circleFVFX;
+    // ParticleSystem circleSVFX;
+    // ParticleSystem circleFVFX;
 
     int curIndex = 0;
     public DotsAndCirclesList dotsList;
@@ -36,8 +36,8 @@ public class DetectDotsAndCircles : MonoBehaviour
 
         //dotsList = GameObject.Find("DotsAndCircles").GetComponent<DotsAndCirclesList>();
 
-        circleSVFX = GameObject.Find("ImportantDot_Good_VFX").GetComponent<ParticleSystem>();
-        circleFVFX = GameObject.Find("ImportantDot_Bad_VFX").GetComponent<ParticleSystem>();
+        // circleSVFX = GameObject.Find("ImportantDot_Good_VFX").GetComponent<ParticleSystem>();
+        // circleFVFX = GameObject.Find("ImportantDot_Bad_VFX").GetComponent<ParticleSystem>();
     }
 
     void Start()
@@ -53,68 +53,78 @@ public class DetectDotsAndCircles : MonoBehaviour
 
             if(curIndex<20){curIndex++;}
             
+            
 
             if (other.tag == "Dots")
-            {
+            {   
+                Animator animator = other.transform.parent.GetComponent<Animator>();
                 if (cameraRay.eyeFollowed)
                 {
                     dotsAudio.Play();
+                    animator.SetTrigger("Good");
+                }
+                else{
+                    animator.SetTrigger("Bad");
                 }
             }
 
             if (other.name == "Circle1")
             {
+                Animator c1animator = other.transform.parent.GetComponent<Animator>();
                 if (cameraRay.eyeFollowed)
                 {
                     circlesAudio_s1.Play();
-                    circleSVFX.Play();
+                    c1animator.SetTrigger("Good");
                 }
                 else
                 {
                     circlesAudio_f.Play();
-                    circleFVFX.Play();
+                    c1animator.SetTrigger("Bad");
                 }
             }
 
             if (other.name == "Circle2")
             {
+                Animator c2animator = other.transform.parent.GetComponent<Animator>();
                 if (cameraRay.eyeFollowed)
                 {
                     circlesAudio_s2.Play();
-                    circleSVFX.Play();
+                    c2animator.SetTrigger("Good");
                 }
                 else
                 {
                     circlesAudio_f.Play();
-                    circleFVFX.Play();
+                    c2animator.SetTrigger("Bad");
                 }
             }
 
             if (other.name == "Circle3")
             {
+                Animator c3animator = other.transform.parent.GetComponent<Animator>();
                 if (cameraRay.eyeFollowed)
                 {
                     circlesAudio_s3.Play();
-                    circleSVFX.Play();
+                    c3animator.SetTrigger("Good");
                 }
                 else
                 {
                     circlesAudio_f.Play();
-                    circleFVFX.Play();
+                    c3animator.SetTrigger("Bad");
                 }
             }
 
             if (other.name == "Circle4")
             {
+                Animator c4animator = other.transform.parent.GetComponent<Animator>();
                 if (cameraRay.eyeFollowed)
                 {
                     circlesAudio_s4.Play();
-                    circleSVFX.Play();
+                    c4animator.SetTrigger("Good");
                 }
                 else
                 {
                     circlesAudio_f.Play();
-                    circleFVFX.Play();
+                    c4animator.SetTrigger("Bad");
                 }
             }
         }
